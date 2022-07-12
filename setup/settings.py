@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'storages',
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
@@ -176,8 +177,20 @@ else:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     SERVER_EMAIL = "info@ktechhub.com"
 
-    # Configure Static urls
-    STATIC_URL = "static/"
+    # DO Spaces
+    AWS_ACCESS_KEY_ID = os.getenv('STATIC_ACCESS_KEY_ID', '')
+    AWS_SECRET_ACCESS_KEY = os.getenv('STATIC_SECRET_KEY', '')
+
+    AWS_STORAGE_BUCKET_NAME = os.getenv('STATIC_BUCKET_NAME', '')
+    AWS_S3_ENDPOINT_URL = os.getenv('STATIC_ENDPOINT_URL', '')
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = "static"
+    AWS_DEFAULT_ACL = 'public-read'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'setup.storage_backends.MediaStorage'
+    STATIC_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, AWS_LOCATION)
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
