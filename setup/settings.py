@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'dj_rest_auth.registration',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -187,18 +190,30 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 12,
 }
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer'
+}
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserDetailsSerializer',
+}
+
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 OLD_PASSWORD_FIELD_ENABLED = True
 REST_AUTH_PW_RESET_USE_SITES_DOMAIN=True
+
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS=1
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_EMAIL_VERIFICATION="mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET=True
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION=True # Login user after verifying email
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION=False # Login user after verifying email
 ACCOUNT_LOGIN_ON_PASSWORD_RESET=True
 ACCOUNT_USERNAME_BLACKLIST=["admin",]
+ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
+ACCOUNT_USER_MODEL_USERNAME_FIELD="username"
+ACCOUNT_USERNAME_REQUIRED=False
+ACCOUNT_AUTHENTICATION_METHOD="username_email"
 
 SITE_ID = 1
 
