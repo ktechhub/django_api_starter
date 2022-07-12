@@ -9,6 +9,12 @@ It also relies heavily on allauth and dj-rest-auth. You can modify the configura
 git clone git@github.com:ktechhub/django_api_starter.git
 ```
 
+## Branch: Static Storage
+Choose a branch based on static storage for production. Leave it to `main` branch if you are not using any object storage location.
+
+- For `digitialocean` checkout to `dospaces` branch
+- For `Amazon S3` checkout to `aws_s3` branch
+
 ## Copy the .env file and update the values
 ```sh
 cp .env.example .env
