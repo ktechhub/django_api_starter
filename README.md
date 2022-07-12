@@ -2,6 +2,8 @@
 
 A django API boiler template to start your project with configuration out of the box.
 
+It also relies heavily on allauth and dj-rest-auth. You can modify the configuration in the settings.py file as you wish.
+
 ## Clone project
 ```sh
 git clone git@github.com:ktechhub/django_api_starter.git
@@ -33,4 +35,12 @@ python manage.py createsuperuser
 ## Run server
 ```sh
 python manage.py runserver
+```
+
+## API Docs
+This starter kit was integrated with **swagger** and **redoc**.
+
+```sh
+http://127.0.0.1:8000/swagger
+http://127.0.0.1:8000/redoc
 ```
